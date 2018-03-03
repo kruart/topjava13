@@ -25,7 +25,7 @@ public class UserMealsUtil {
                 new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,20,0), "Ужин", 510)
         );
         List<UserMealWithExceed> filteredList = getFilteredWithExceeded(mealList, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000);
-        List<UserMealWithExceed> filteredList2 = getFilteredWithExceededWithoutStreams(mealList, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000);
+        List<UserMealWithExceed> filteredList2 = getFilteredWithExceededWithCycles(mealList, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000);
 
         filteredList.forEach(meal -> System.out.println(meal.getDateTime() + ": " + meal.isExceed()));
         System.out.println("==================");
@@ -42,7 +42,7 @@ public class UserMealsUtil {
                 .collect(Collectors.toList());
     }
 
-    public static List<UserMealWithExceed>  getFilteredWithExceededWithoutStreams(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
+    public static List<UserMealWithExceed> getFilteredWithExceededWithCycles(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
         Map<LocalDate, Integer> sumCaloriesByDate = new HashMap<>();
 
         for (UserMeal meal : mealList) {
