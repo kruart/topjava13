@@ -4,12 +4,16 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class InMemoryMealRepositoryImpl implements MealRepository {
-    private static List<Meal> mealList = new ArrayList<>();
+    private static List<Meal> mealList = new CopyOnWriteArrayList<>();
     private static AtomicInteger counter = new AtomicInteger(0);
+    private static Comparator<Meal> sortedMeal = (o1, o2) -> o2.getDateTime().compareTo(o1.getDateTime());
 
     {
         MealsUtil.meals.forEach(this::save);
@@ -43,6 +47,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public List<Meal> getAll() {
+        mealList.sort(sortedMeal);
         return mealList;
     }
 }

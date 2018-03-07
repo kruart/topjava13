@@ -29,7 +29,7 @@
             <th>delete</th>
         </tr>
 
-        <<a href="meals?action=add">Add Meal</a>
+        <a href="meals?action=add">Add Meal</a>
         <c:forEach items="${meals}" var="meal">
             <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealWithExceed"/>
             <tr class="${meal.exceed == true ? 'exceed' : 'normal'}">
