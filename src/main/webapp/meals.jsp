@@ -25,10 +25,11 @@
             <th>datetime</th>
             <th>description</th>
             <th>calories</th>
-            <th>exceed</th>
+            <th>edit</th>
+            <th>delete</th>
         </tr>
 
-
+        <<a href="meals?action=add">Add Meal</a>
         <c:forEach items="${meals}" var="meal">
             <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealWithExceed"/>
             <tr class="${meal.exceed == true ? 'exceed' : 'normal'}">
@@ -38,7 +39,8 @@
                 </td>
                 <td>${meal.description}</td>
                 <td>${meal.calories}</td>
-                <td>${meal.exceed}</td>
+                <td><a href="meals?action=edit&id=${meal.id}">edit meal</a></td>
+                <td><a href="meals?action=delete&id=${meal.id}">delete meal</a></td>
             </tr>
         </c:forEach>
     </table>
