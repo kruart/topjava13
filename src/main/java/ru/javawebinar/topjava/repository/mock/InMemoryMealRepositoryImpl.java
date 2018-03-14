@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.repository.mock;
 
+import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 
@@ -13,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+@Repository
 public class InMemoryMealRepositoryImpl implements MealRepository {
     //<userId, (mealId, meal)>
     private Map<Integer, Map<Integer, Meal>> repository = new ConcurrentHashMap<>();
