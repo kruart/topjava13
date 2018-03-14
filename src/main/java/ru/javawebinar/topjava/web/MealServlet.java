@@ -8,6 +8,8 @@ import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.repository.mock.InMemoryMealRepositoryImpl;
+import ru.javawebinar.topjava.to.MealWithExceed;
+import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.meal.MealRestController;
 
@@ -17,8 +19,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
 import java.util.Objects;
 
 public class MealServlet extends HttpServlet {
@@ -36,21 +41,34 @@ public class MealServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String id = request.getParameter("id");
+        String action = request.getParameter("action");
 
-        Meal meal = new Meal(id.isEmpty() ? null : Integer.valueOf(id),
-                LocalDateTime.parse(request.getParameter("dateTime")),
-                request.getParameter("description"),
-                Integer.parseInt(request.getParameter("calories")));
+        if (action == null) {
+            String id = request.getParameter("id");
 
-        log.info(meal.isNew() ? "Create {}" : "Update {}", meal);
+            Meal meal = new Meal(id.isEmpty() ? null : Integer.valueOf(id),
+                    LocalDateTime.parse(request.getParameter("dateTime")),
+                    request.getParameter("description"),
+                    Integer.parseInt(request.getParameter("calories")));
 
-        if (meal.isNew()) {
-            controller.create(meal, AuthorizedUser.id());
-        } else {
-            controller.update(meal, AuthorizedUser.id());
+            log.info(meal.isNew() ? "Create {}" : "Update {}", meal);
+
+            if (meal.isNew()) {
+                controller.create(meal, AuthorizedUser.id());
+            } else {
+                controller.update(meal, AuthorizedUser.id());
+            }
+            response.sendRedirect("meals");
+        } else if("filter".equals(action)) {
+            LocalDate startDate = DateTimeUtil.parseLocalDate(resetAttr("startDate", request), LocalDate.MIN);
+            LocalDate endDate = DateTimeUtil.parseLocalDate(resetAttr("endDate", request), LocalDate.MAX);
+            LocalTime startTime = DateTimeUtil.parseLocalTime(resetAttr("startTime", request), LocalTime.MIN);
+            LocalTime endTime = DateTimeUtil.parseLocalTime(resetAttr("endTime", request), LocalTime.MAX);
+
+            Collection<MealWithExceed> filteredMeal = controller.getAllFiltered(LocalDateTime.of(startDate, startTime), LocalDateTime.of(endDate, endTime), AuthorizedUser.id());
+            request.setAttribute("meals", filteredMeal);
+            request.getRequestDispatcher("/meals.jsp").forward(request, response);
         }
-        response.sendRedirect("meals");
     }
 
     @Override
@@ -84,5 +102,11 @@ public class MealServlet extends HttpServlet {
     private int getId(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("id"));
         return Integer.parseInt(paramId);
+    }
+
+    private String resetAttr(String param, HttpServletRequest request) {
+        String paramValue = request.getParameter(param);
+        request.setAttribute(param, paramValue);
+        return paramValue;
     }
 }

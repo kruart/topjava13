@@ -6,6 +6,7 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.to.MealWithExceed;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Controller
@@ -32,5 +33,9 @@ public class MealRestController {
 
     public Collection<MealWithExceed> getAll(int userId) {
         return service.getAll(userId);
+    }
+
+    public Collection<MealWithExceed> getAllFiltered(LocalDateTime from, LocalDateTime to, int userId) {
+        return service.getAllFiltered(from, to, userId);
     }
 }
