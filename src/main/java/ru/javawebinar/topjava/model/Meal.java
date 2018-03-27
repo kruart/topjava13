@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.model;
 
+import org.hibernate.validator.constraints.Range;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -21,8 +22,8 @@ public class Meal extends AbstractBaseEntity {
     @Size(min = 5, max = 255)
     private String description;
 
-    @NotBlank
     @Column(name = "calories", nullable = false)
+    @Range(min = 50, max = 10000)
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
