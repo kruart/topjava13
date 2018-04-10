@@ -10,6 +10,7 @@ import ru.javawebinar.topjava.model.Meal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Transactional(readOnly = true)
 public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
 
     @Transactional
@@ -17,10 +18,9 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
     @Query(name = Meal.DELETE)
     int delete(@Param("id") int id, @Param("userId") int userId);
 
+    @Transactional
     @Override
     Meal save(Meal entity);
-
-    @Transactional
 
 
     @Query("SELECT m FROM Meal m WHERE m.id=:id AND m.user.id=:userId")
