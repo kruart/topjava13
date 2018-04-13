@@ -145,6 +145,8 @@ C `@BatchSize(size = 200)` делается запрос на юзеров (1) �
 
      mvn clean package -DskipTests=true org.codehaus.cargo:cargo-maven2-plugin:1.6.7:run
 
+Приложение деплоится в application context topjava: [http://localhost:8080/topjava](http://localhost:8080/topjava)
+
 - <a href="https://codehaus-cargo.github.io/cargo/Maven2+plugin.html">Cargo Maven2 plugin</a>
 - <a href="http://stackoverflow.com/questions/4305935/is-it-possible-to-supply-tomcat6s-context-xml-file-via-the-maven-cargo-plugin#4417945">Катомизация context.xml в cargo-maven2-plugin</a>
 - <a href="https://tomcat.apache.org/tomcat-8.0-doc/jndi-resources-howto.html"/>Tomcat JNDI Resources</a>
