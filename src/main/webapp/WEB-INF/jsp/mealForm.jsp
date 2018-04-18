@@ -10,7 +10,7 @@
     <h2>${meal.id == null ? 'Create meal' : 'Edit meal'}</h2>
     <hr>
     <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.Meal" scope="request"/>
-    <form method="post" action="${pageContext.request.contextPath}/meals/save">
+    <form method="post" action="meals/save">
         <input type="hidden" name="id" value="${meal.id}">
         <dl>
             <dt>DateTime:</dt>
