@@ -35,7 +35,6 @@ $(function () {
     makeEditable();
 
     $('#dateTime').datetimepicker({
-        format: 'Y-m-d\\TH:i',
-        lang: 'uk'
+        format: 'Y-m-d H:i'
     });
 });
