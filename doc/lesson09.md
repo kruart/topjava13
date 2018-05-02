@@ -8,13 +8,13 @@
 ### ![error](https://cloud.githubusercontent.com/assets/13649199/13672935/ef09ec1e-e6e7-11e5-9f79-d1641c05cbe6.png) Правка
 
 #### Apply 9_0_fix.patch
-> Поправил ресурсы и UI.
+> Поправил ресурсы и UI
 - [Bootstrap spacing](https://getbootstrap.com/docs/4.1/utilities/spacing/)
 
 ## ![hw](https://cloud.githubusercontent.com/assets/13649199/13672719/09593080-e6e7-11e5-81d1-5cb629c438ca.png) Разбор домашнего задания HW8
 
 ### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 1. <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFb0JKbElkT000amM">HW8</a>
-**Поправка к видео: <a href="http://getbootstrap.com/css/#grid">в гриде bootstrap 12 колонок</a>.**
+**Поправка к видео: [в гриде bootstrap 12 колонок](https://getbootstrap.com/docs/4.1/layout/grid/)**
 
 #### Apply 9_01_HW8.patch
 > - Все события сделал через `onlick`
