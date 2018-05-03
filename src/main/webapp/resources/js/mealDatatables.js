@@ -75,5 +75,5 @@ function filter() {
 
 
 function clearFilter() {
-    $("#filterForm").find("input[type=text], textarea").val("");
+    $("#filterForm")[0].reset();
 }
