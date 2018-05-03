@@ -42,6 +42,7 @@
             </div>
 
             <button type="button" class="btn btn-dark" onclick="filter()"><spring:message code="meal.filter"/></button>
+            <button type="button" class="btn btn-dark" onclick="clearFilter()"><spring:message code="meal.clear"/></button>
         </form>
 
         <hr>

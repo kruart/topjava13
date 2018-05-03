@@ -72,3 +72,8 @@ function filter() {
         }
     });
 }
+
+
+function clearFilter() {
+    $("#filterForm").find("input[type=text], textarea").val("");
+}
