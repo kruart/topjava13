@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.to.MealWithExceed;
 
-import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
-import static org.springframework.format.annotation.DateTimeFormat.*;
+import static org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @RestController
 @RequestMapping("ajax/meals/")
@@ -29,8 +30,7 @@ public class MealAjaxController extends AbstractMealController {
     }
 
     @PostMapping()
-    public void createOrUpdate(HttpServletRequest request,
-                               @RequestParam("id") Integer id,
+    public void createOrUpdate(@RequestParam("id") Integer id,
                                @RequestParam("dateTime") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime dateTime,
                                @RequestParam("description") String description,
                                @RequestParam("calories") Integer calories) {
@@ -38,5 +38,13 @@ public class MealAjaxController extends AbstractMealController {
         if (meal.isNew()) {
             super.create(meal);
         }
+    }
+
+    @PostMapping(value = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<MealWithExceed> filter(@RequestParam(value = "startDate", required = false) LocalDate startDate,
+                                       @RequestParam(value = "startTime", required = false) LocalTime startTime,
+                                       @RequestParam(value = "endDate",required = false) LocalDate endDate,
+                                       @RequestParam(value = "endTime", required = false) LocalTime endTime) {
+        return super.getBetween(startDate, startTime, endDate, endTime);
     }
 }
