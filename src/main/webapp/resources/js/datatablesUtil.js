@@ -41,6 +41,14 @@ function updateTableByData(data) {
 }
 
 function save() {
+    var cur_dt = form.find('#dateTime');
+
+    if(cur_dt.val() !== undefined && cur_dt.val() !== ''){
+        var arr_dt = cur_dt.val().split(" ");
+        cur_dt.val(arr_dt.join('T'));
+    }
+
+
     $.ajax({
         type: "POST",
         url: ajaxUrl,
