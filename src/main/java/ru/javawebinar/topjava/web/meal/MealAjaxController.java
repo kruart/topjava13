@@ -22,6 +22,12 @@ public class MealAjaxController extends AbstractMealController {
     }
 
     @Override
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Meal get(@PathVariable("id") int id) {
+        return super.get(id);
+    }
+
+    @Override
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         super.delete(id);
@@ -35,6 +41,8 @@ public class MealAjaxController extends AbstractMealController {
         Meal meal = new Meal(id, dateTime, description, calories);
         if (meal.isNew()) {
             super.create(meal);
+        } else {
+            super.update(meal, id);
         }
     }
 
