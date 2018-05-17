@@ -9,8 +9,9 @@
 ### ![error](https://cloud.githubusercontent.com/assets/13649199/13672935/ef09ec1e-e6e7-11e5-9f79-d1641c05cbe6.png) Правка
 
 #### Apply 11_0_fix.patch
-> Cделал общий `bodyHeader.jsp` с разделением `isAnonymous/isAuthenticated`
->  - [Bootstrap 4 navbar items on right side](https://stackoverflow.com/a/40193892/548473)
+> - Cделал общий `bodyHeader.jsp` с разделением `isAnonymous/isAuthenticated`
+>   - [Bootstrap 4 navbar items on right side](https://stackoverflow.com/a/40193892/548473)
+> - Добавил [Responsive behaviors](https://getbootstrap.com/docs/4.1/components/navbar/#responsive-behaviors) - при уменшении ширины экрана навигация сворачивается в кнопку
 
 ## ![hw](https://cloud.githubusercontent.com/assets/13649199/13672719/09593080-e6e7-11e5-81d1-5cb629c438ca.png) Разбор домашнего задания HW10
 
