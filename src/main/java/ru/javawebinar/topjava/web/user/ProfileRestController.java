@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.web.user;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
@@ -31,7 +32,11 @@ public class ProfileRestController extends AbstractUserController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@Valid @RequestBody UserTo userTo, BindingResult result) {
         if (!result.hasErrors()) {
-            super.update(userTo, AuthorizedUser.id());
+            try {
+                super.update(userTo, AuthorizedUser.id());
+            } catch (DataIntegrityViolationException ex) {
+                throw new DataIntegrityViolationException("user with this email already present in application");
+            }
         } else {
             throw new IllegalRequestDataException(ValidationUtil.getErrorResponse(result));
         }
