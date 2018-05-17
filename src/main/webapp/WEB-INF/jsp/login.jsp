@@ -6,16 +6,28 @@
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark py-0">
     <div class="container">
-        <div class="navbar-brand"><img src="resources/images/icon-meal.png"> <spring:message code="app.title"/></div>
-        <form:form class="form-inline my-2" action="spring_security_check" method="post">
-            <input class="form-control mr-1" type="text" placeholder="Email" name="username">
-            <input class="form-control mr-1" type="password" placeholder="Password" name="password">
-            <button class="btn btn-success" type="submit">
-                <span class="fa fa-sign-in"></span>
-            </button>
-        </form:form>
+        <a href="meals" class="navbar-brand"><img src="resources/images/icon-meal.png"> <spring:message code="app.title"/></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form:form class="form-inline my-2" action="spring_security_check" method="post">
+                        <input class="form-control mr-1" type="text" placeholder="Email" name="username">
+                        <input class="form-control mr-1" type="password" placeholder="Password" name="password">
+                        <button class="btn btn-success" type="submit">
+                            <span class="fa fa-sign-in"></span>
+                        </button>
+                    </form:form>
+                </li>
+                <jsp:include page="fragments/lang.jsp"/>
+            </ul>
+        </div>
     </div>
 </nav>
 
