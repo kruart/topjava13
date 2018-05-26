@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.web.oauth;
+package ru.javawebinar.topjava.web.oauth.provider;
 
 public class Oauth2Provider {
     private String clientId;
@@ -6,9 +6,9 @@ public class Oauth2Provider {
     private String authorizeUrl;
     private String redirectUri;
     private String accessTokenUrl;
-    private String userDataUrls;
+    private String userDataUrl;
     private String scope;
-    private String state;
+    private final static String state = "tjua_csrf_token_oauth_Lk33j";
 
     public String getClientId() {
         return clientId;
@@ -51,11 +51,11 @@ public class Oauth2Provider {
     }
 
     public String getUserDataUrl() {
-        return userDataUrls;
+        return userDataUrl;
     }
 
     public void setUserDataUrl(String userDataUrl) {
-        this.userDataUrls = userDataUrl;
+        this.userDataUrl = userDataUrl;
     }
 
     public String getScope() {
@@ -66,11 +66,7 @@ public class Oauth2Provider {
         this.scope = scope;
     }
 
-    public String getState() {
+    public static String getState() {
         return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 }

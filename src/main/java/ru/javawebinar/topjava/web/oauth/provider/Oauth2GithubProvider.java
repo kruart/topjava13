@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.web.oauth;
+package ru.javawebinar.topjava.web.oauth.provider;
 
 public class Oauth2GithubProvider extends Oauth2Provider {
     private String emailDataUrl;
