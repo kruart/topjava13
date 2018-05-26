@@ -35,6 +35,9 @@
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
 
+    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" id="converter"/>
+    <bean class="org.springframework.web.client.RestTemplate" p:messageConverters-ref="converter" />
+
     <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
         <property name="formatters">
             <set>

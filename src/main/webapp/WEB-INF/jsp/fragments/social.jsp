@@ -8,7 +8,7 @@
     <a class="btn btn-social-icon btn-google">
         <span class="fa fa-google"></span>
     </a>
-    <a class="btn btn-social-icon btn-github">
+    <a class="btn btn-social-icon btn-github" href="oauth/github/authorize">
         <span class="fa fa-github"></span>
     </a>
     <a class="btn btn-social-icon btn-soundcloud">
