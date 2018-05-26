@@ -75,8 +75,8 @@ abstract public class AbstractOauth2Controller {
                 .queryParam("client_id", provider.getClientId())
                 .queryParam("client_secret", provider.getSecretId())
                 .queryParam("code", code)
-                .queryParam("redirect_url", provider.getRedirectUri())
-                .queryParam("state", provider.getState());
+                .queryParam("redirect_uri", provider.getRedirectUri())
+                .queryParam("state", Oauth2Provider.getState());
 
         ResponseEntity<JsonNode> tokenEntity = template.postForEntity(builder.build().encode().toUri(), null, JsonNode.class);
 

@@ -66,8 +66,7 @@ public class Oauth2GithubController extends AbstractOauth2Controller {
      * Using an access token to receive username from github
      */
     private String getUserData(String token) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(provider.getUserDataUrl())
-                .queryParam("access_token", token);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(provider.getUserDataUrl());
 
         ResponseEntity<JsonNode> tokenEntity = template.exchange(
                 builder.build().encode().toUri(), HttpMethod.GET, new HttpEntity<>(createHeader(token)), JsonNode.class);

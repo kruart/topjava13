@@ -2,7 +2,7 @@
     <a class="btn btn-social-icon btn-twitter">
         <span class="fa fa-twitter"></span>
     </a>
-    <a class="btn btn-social-icon btn-facebook">
+    <a class="btn btn-social-icon btn-facebook" href="oauth/facebook/authorize">
         <span class="fa fa-facebook"></span>
     </a>
     <a class="btn btn-social-icon btn-google">

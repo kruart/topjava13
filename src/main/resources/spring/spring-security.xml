@@ -49,7 +49,7 @@
         </authentication-provider>
     </authentication-manager>
 
-    <beans:bean class="ru.javawebinar.topjava.web.oauth.provider.Oauth2GithubProvider" id="githubOuath2Provider"
+    <beans:bean class="ru.javawebinar.topjava.web.oauth.provider.Oauth2GithubProvider" id="githubOauth2Provider"
                 p:clientId="5ef6bbf3012559df545b"
                 p:secretId="35321128b121f92bf2cee2166d962358402d2fb7"
                 p:authorizeUrl="https://github.com/login/oauth/authorize"
@@ -58,4 +58,13 @@
                 p:userDataUrl="https://api.github.com/user"
                 p:emailDataUrl="https://api.github.com/user/emails"
                 p:scope="read:user user:email"/>
+
+    <beans:bean class="ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider" id="facebookOauth2Provider"
+                p:clientId="1747338582230976"
+                p:secretId="e392b1f9db8896028fa370da02585a5d"
+                p:authorizeUrl="https://www.facebook.com/v3.0/dialog/oauth"
+                p:accessTokenUrl="https://graph.facebook.com/v3.0/oauth/access_token"
+                p:redirectUri="http://localhost:8080/topjava/oauth/facebook/callback"
+                p:userDataUrl="https://graph.facebook.com/me?fields=name,email"
+                p:scope="email"/>
 </beans:beans>
