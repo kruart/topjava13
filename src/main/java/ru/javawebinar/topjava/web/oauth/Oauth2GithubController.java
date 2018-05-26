@@ -2,6 +2,8 @@ package ru.javawebinar.topjava.web.oauth;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -103,18 +105,23 @@ public class Oauth2GithubController {
                 .queryParam("access_token", token);
 
         ResponseEntity<JsonNode> tokenEntity = template.exchange(
-                builder.build().encode().toUri(), HttpMethod.GET, null, JsonNode.class);
+                builder.build().encode().toUri(), HttpMethod.GET, new HttpEntity<>(createHeader(token)), JsonNode.class);
 
         return tokenEntity.getBody().get("login").asText();
     }
 
     private String getEmail(String token) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(provider.getEmailDataUrl())
-                .queryParam("access_token", token);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(provider.getEmailDataUrl());
 
         ResponseEntity<JsonNode> tokenEntity = template.exchange(
-                builder.build().encode().toUri(), HttpMethod.GET, null, JsonNode.class);
+                builder.build().encode().toUri(), HttpMethod.GET, new HttpEntity<>(createHeader(token)), JsonNode.class);
 
         return tokenEntity.getBody().get(0).get("email").asText();
+    }
+
+    private HttpHeaders createHeader(String token) {
+        HttpHeaders header = new HttpHeaders();
+        header.add("Authorization", "Bearer " + token);
+        return header;
     }
 }
