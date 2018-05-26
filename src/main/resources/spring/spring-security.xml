@@ -67,4 +67,13 @@
                 p:redirectUri="http://localhost:8080/topjava/oauth/facebook/callback"
                 p:userDataUrl="https://graph.facebook.com/me?fields=name,email"
                 p:scope="email"/>
+
+    <beans:bean class="ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider" id="googleOauth2Provider"
+                p:clientId="336214789827-92u0709fm2lqt6pk5ailgh1blt6361ch.apps.googleusercontent.com"
+                p:secretId="WUje9JgL9Fj6h1Swc59LdYWv"
+                p:authorizeUrl="https://accounts.google.com/o/oauth2/v2/auth"
+                p:accessTokenUrl="https://www.googleapis.com/oauth2/v4/token"
+                p:redirectUri="http://localhost:8080/topjava/oauth/google/callback"
+                p:userDataUrl="https://www.googleapis.com/oauth2/v3/userinfo"
+                p:scope="openid email"/>
 </beans:beans>

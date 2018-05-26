@@ -20,7 +20,7 @@ import ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider;
  */
 @Controller
 @RequestMapping("/oauth/github")
-public class Oauth2GithubController extends AbstractOauth2Controller {
+public class GithubOauth2Controller extends AbstractOauth2Controller {
 
     @Autowired
     private Oauth2GithubProvider provider;
@@ -52,7 +52,7 @@ public class Oauth2GithubController extends AbstractOauth2Controller {
      */
     @Override
     UserTo getData(String token) {
-        String name = getUserData(token);
+        String name = getUser(token);
         String email = getEmail(token);
 
         if (name == null || email == null) {
@@ -65,7 +65,7 @@ public class Oauth2GithubController extends AbstractOauth2Controller {
     /**
      * Using an access token to receive username from github
      */
-    private String getUserData(String token) {
+    private String getUser(String token) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(provider.getUserDataUrl());
 
         ResponseEntity<JsonNode> tokenEntity = template.exchange(

@@ -12,14 +12,24 @@ import org.springframework.web.util.UriComponentsBuilder;
 import ru.javawebinar.topjava.to.UserTo;
 import ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider;
 
+/**
+ * Handles requests for facebook oauth2 authorization
+ *
+ * @author kruart on 26.05.2018.
+ */
 @Controller
 @RequestMapping("/oauth/facebook")
-public class Oauth2FacebookController extends AbstractOauth2Controller {
+public class FacebookOauth2Controller extends AbstractOauth2Controller {
 
     @Autowired
     @Qualifier("facebookOauth2Provider")
     private Oauth2Provider provider;
 
+    /**
+     * Performs redirect to facebook authorize url
+     * more about: https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow
+     * check: https://developers.facebook.com/tools/explorer
+     */
     @RequestMapping("/authorize")
     @Override
     public String authorize() {
@@ -30,11 +40,17 @@ public class Oauth2FacebookController extends AbstractOauth2Controller {
                 "&state=" + Oauth2Provider.getState();
     }
 
+    /**
+     * Calls the parent method to obtain the access token
+     */
     @Override
     String getAccessToken(String code) {
         return super.getAccessToken(code, provider);
     }
 
+    /**
+     * Using an access token to receive necessary data from facebook
+     */
     @Override
     UserTo getData(String token) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(provider.getUserDataUrl());
