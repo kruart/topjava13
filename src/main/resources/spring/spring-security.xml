@@ -49,18 +49,6 @@
         </authentication-provider>
     </authentication-manager>
 
-    <beans:bean name="github-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-                p:location="classpath:oauth/github.properties"
-                p:placeholderPrefix="${github."/>
-
-    <beans:bean name="facebook-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-                p:location="classpath:oauth/facebook.properties"
-                p:placeholderPrefix="${facebook."/>
-
-    <beans:bean name="google-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-                p:location="classpath:oauth/google.properties"
-                p:placeholderPrefix="${google."/>
-
     <beans:bean class="ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider" id="githubOauth2Provider"
                 p:clientId="${github.clientId}"
                 p:secretId="${github.secretId}"
@@ -87,4 +75,32 @@
                 p:redirectUri="${google.redirectUri}"
                 p:userDataUrl="${google.userDataUrl}"
                 p:scope="${google.scope}"/>
+
+    <beans:beans profile="postgres,hsqldb,tomcat">
+        <beans:bean name="github-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+                    p:location="classpath:oauth/github.properties"
+                    p:placeholderPrefix="${github."/>
+
+        <beans:bean name="facebook-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+                    p:location="classpath:oauth/facebook.properties"
+                    p:placeholderPrefix="${facebook."/>
+
+        <beans:bean name="google-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+                    p:location="classpath:oauth/google.properties"
+                    p:placeholderPrefix="${google."/>
+    </beans:beans>
+
+    <beans:beans profile="heroku">
+        <beans:bean name="github-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+                    p:location="classpath:oauth/heroku_github.properties"
+                    p:placeholderPrefix="${github."/>
+
+        <beans:bean name="facebook-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+                    p:location="classpath:oauth/heroku_facebook.properties"
+                    p:placeholderPrefix="${facebook."/>
+
+        <beans:bean name="google-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+                    p:location="classpath:oauth/heroku_google.properties"
+                    p:placeholderPrefix="${google."/>
+    </beans:beans>
 </beans:beans>
