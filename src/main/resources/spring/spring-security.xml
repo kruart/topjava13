@@ -3,7 +3,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:p="http://www.springframework.org/schema/p"
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+	         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http pattern="/resources/**" security="none"/>
     <http pattern="/webjars/**" security="none"/>
@@ -35,45 +35,57 @@
     <authentication-manager>
         <authentication-provider user-service-ref="userService">
             <password-encoder ref="passwordEncoder"/>
-<!--
-            <jdbc-user-service data-source-ref="dataSource"
-                               users-by-username-query="SELECT email, password, enabled FROM users WHERE email = ?"
-                               authorities-by-username-query="
-                                                       SELECT u.email, r.role FROM users u, user_roles r WHERE u.id = r.user_id AND u.email = ?"
-            />
-            <user-service>
-                <user name="user@yandex.ru" password="password" authorities="ROLE_USER"/>
-                <user name="admin@gmail.com" password="admin" authorities="ROLE_ADMIN"/>
-            </user-service>
--->
+            <!--
+                        <jdbc-user-service data-source-ref="dataSource"
+                                           users-by-username-query="SELECT email, password, enabled FROM users WHERE email = ?"
+                                           authorities-by-username-query="
+                                                                   SELECT u.email, r.role FROM users u, user_roles r WHERE u.id = r.user_id AND u.email = ?"
+                        />
+                        <user-service>
+                            <user name="user@yandex.ru" password="password" authorities="ROLE_USER"/>
+                            <user name="admin@gmail.com" password="admin" authorities="ROLE_ADMIN"/>
+                        </user-service>
+            -->
         </authentication-provider>
     </authentication-manager>
 
+    <beans:bean name="github-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+                p:location="classpath:oauth/github.properties"
+                p:placeholderPrefix="${github."/>
+
+    <beans:bean name="facebook-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+                p:location="classpath:oauth/facebook.properties"
+                p:placeholderPrefix="${facebook."/>
+
+    <beans:bean name="google-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+                p:location="classpath:oauth/google.properties"
+                p:placeholderPrefix="${google."/>
+
     <beans:bean class="ru.javawebinar.topjava.web.oauth.provider.Oauth2GithubProvider" id="githubOauth2Provider"
-                p:clientId="5ef6bbf3012559df545b"
-                p:secretId="35321128b121f92bf2cee2166d962358402d2fb7"
-                p:authorizeUrl="https://github.com/login/oauth/authorize"
-                p:accessTokenUrl="https://github.com/login/oauth/access_token"
-                p:redirectUri="http://localhost:8080/topjava/oauth/github/callback"
-                p:userDataUrl="https://api.github.com/user"
-                p:emailDataUrl="https://api.github.com/user/emails"
-                p:scope="read:user user:email"/>
+                p:clientId="${github.clientId}"
+                p:secretId="${github.secretId}"
+                p:authorizeUrl="${github.authorizeUrl}"
+                p:accessTokenUrl="${github.accessTokenUrl}"
+                p:redirectUri="${github.redirectUri}"
+                p:userDataUrl="${github.userDataUrl}"
+                p:emailDataUrl="${github.emailDataUrl}"
+                p:scope="${github.scope}"/>
 
     <beans:bean class="ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider" id="facebookOauth2Provider"
-                p:clientId="1747338582230976"
-                p:secretId="e392b1f9db8896028fa370da02585a5d"
-                p:authorizeUrl="https://www.facebook.com/v3.0/dialog/oauth"
-                p:accessTokenUrl="https://graph.facebook.com/v3.0/oauth/access_token"
-                p:redirectUri="http://localhost:8080/topjava/oauth/facebook/callback"
-                p:userDataUrl="https://graph.facebook.com/me?fields=name,email"
-                p:scope="email"/>
+                p:clientId="${facebook.clientId}"
+                p:secretId="${facebook.secretId}"
+                p:authorizeUrl="${facebook.authorizeUrl}"
+                p:accessTokenUrl="${facebook.accessTokenUrl}"
+                p:redirectUri="${facebook.redirectUri}"
+                p:userDataUrl="${facebook.userDataUrl}"
+                p:scope="${facebook.scope}"/>
 
     <beans:bean class="ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider" id="googleOauth2Provider"
-                p:clientId="336214789827-92u0709fm2lqt6pk5ailgh1blt6361ch.apps.googleusercontent.com"
-                p:secretId="WUje9JgL9Fj6h1Swc59LdYWv"
-                p:authorizeUrl="https://accounts.google.com/o/oauth2/v2/auth"
-                p:accessTokenUrl="https://www.googleapis.com/oauth2/v4/token"
-                p:redirectUri="http://localhost:8080/topjava/oauth/google/callback"
-                p:userDataUrl="https://www.googleapis.com/oauth2/v3/userinfo"
-                p:scope="openid email"/>
+                p:clientId="${google.clientId}"
+                p:secretId="${google.secretId}"
+                p:authorizeUrl="${google.authorizeUrl}"
+                p:accessTokenUrl="${google.accessTokenUrl}"
+                p:redirectUri="${google.redirectUri}"
+                p:userDataUrl="${google.userDataUrl}"
+                p:scope="${google.scope}"/>
 </beans:beans>
