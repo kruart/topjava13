@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.web.oauth;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.javawebinar.topjava.to.UserTo;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
-import ru.javawebinar.topjava.web.oauth.provider.Oauth2GithubProvider;
 import ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider;
 
 /**
@@ -23,7 +23,8 @@ import ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider;
 public class GithubOauth2Controller extends AbstractOauth2Controller {
 
     @Autowired
-    private Oauth2GithubProvider provider;
+    @Qualifier("githubOauth2Provider")
+    private Oauth2Provider provider;
 
     /**
      * Performs redirect to github authorize url
@@ -66,7 +67,7 @@ public class GithubOauth2Controller extends AbstractOauth2Controller {
      * Using an access token to receive username from github
      */
     private String getUser(String token) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(provider.getUserDataUrl());
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(provider.getUserDataUrl().split(",")[0]);
 
         ResponseEntity<JsonNode> tokenEntity = template.exchange(
                 builder.build().encode().toUri(), HttpMethod.GET, new HttpEntity<>(createHeader(token)), JsonNode.class);
@@ -78,7 +79,7 @@ public class GithubOauth2Controller extends AbstractOauth2Controller {
      * Using an access token to receive email from github
      */
     private String getEmail(String token) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(provider.getEmailDataUrl());
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(provider.getUserDataUrl().split(",")[1]);
 
         ResponseEntity<JsonNode> tokenEntity = template.exchange(
                 builder.build().encode().toUri(), HttpMethod.GET, new HttpEntity<>(createHeader(token)), JsonNode.class);

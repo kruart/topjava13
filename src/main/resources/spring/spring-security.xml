@@ -61,14 +61,13 @@
                 p:location="classpath:oauth/google.properties"
                 p:placeholderPrefix="${google."/>
 
-    <beans:bean class="ru.javawebinar.topjava.web.oauth.provider.Oauth2GithubProvider" id="githubOauth2Provider"
+    <beans:bean class="ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider" id="githubOauth2Provider"
                 p:clientId="${github.clientId}"
                 p:secretId="${github.secretId}"
                 p:authorizeUrl="${github.authorizeUrl}"
                 p:accessTokenUrl="${github.accessTokenUrl}"
                 p:redirectUri="${github.redirectUri}"
                 p:userDataUrl="${github.userDataUrl}"
-                p:emailDataUrl="${github.emailDataUrl}"
                 p:scope="${github.scope}"/>
 
     <beans:bean class="ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider" id="facebookOauth2Provider"
