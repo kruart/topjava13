@@ -12,6 +12,7 @@ import ru.javawebinar.topjava.web.user.AdminRestController;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN;
 
 class InMemoryAdminRestControllerTest {
@@ -19,36 +20,36 @@ class InMemoryAdminRestControllerTest {
     private static AdminRestController controller;
 
     @BeforeAll
-    public static void beforeClass() {
+    static void beforeClass() {
         appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/mock.xml");
         System.out.println("\n" + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
         controller = appCtx.getBean(AdminRestController.class);
     }
 
     @AfterAll
-    public static void afterClass() {
+    static void afterClass() {
 //        May cause during JUnit "Cache is not alive (STATUS_SHUTDOWN)" as JUnit share Spring context for speed
 //        http://stackoverflow.com/questions/16281802/ehcache-shutdown-causing-an-exception-while-running-test-suite
 //        appCtx.close();
     }
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         // re-initialize
         InMemoryUserRepositoryImpl repository = appCtx.getBean(InMemoryUserRepositoryImpl.class);
         repository.init();
     }
 
     @Test
-    void testDelete() throws Exception {
+    void testDelete() {
         controller.delete(UserTestData.USER_ID);
         Collection<User> users = controller.getAll();
-        Assertions.assertEquals(users.size(), 1);
-        Assertions.assertEquals(users.iterator().next(), ADMIN);
+        assertEquals(users.size(), 1);
+        assertEquals(users.iterator().next(), ADMIN);
     }
 
     @Test
-    void testDeleteNotFound() throws Exception {
-        Assertions.assertThrows(NotFoundException.class, () -> controller.delete(10));
+    void testDeleteNotFound() {
+        assertThrows(NotFoundException.class, () -> controller.delete(10));
     }
 }

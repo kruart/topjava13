@@ -1,6 +1,5 @@
 package ru.javawebinar.topjava.web;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import ru.javawebinar.topjava.web.user.AdminRestController;
 
 import java.util.Collection;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-app.xml", "classpath:spring/mock.xml"})
@@ -25,20 +25,20 @@ class InMemoryAdminRestControllerSpringTest {
     private InMemoryUserRepositoryImpl repository;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         repository.init();
     }
 
     @Test
-    void testDelete() throws Exception {
+    void testDelete() {
         controller.delete(UserTestData.USER_ID);
         Collection<User> users = controller.getAll();
-        Assertions.assertEquals(users.size(), 1);
-        Assertions.assertEquals(users.iterator().next(), ADMIN);
+        assertEquals(users.size(), 1);
+        assertEquals(users.iterator().next(), ADMIN);
     }
 
     @Test
-    void testDeleteNotFound() throws Exception {
-        Assertions.assertThrows(NotFoundException.class, () -> controller.delete(10));
+    void testDeleteNotFound() {
+        assertThrows(NotFoundException.class, () -> controller.delete(10));
     }
 }
