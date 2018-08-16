@@ -1,6 +1,6 @@
 package ru.javawebinar.topjava.web.user;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,12 +23,12 @@ import static ru.javawebinar.topjava.TestUtil.userHttpBasic;
 import static ru.javawebinar.topjava.UserTestData.*;
 import static ru.javawebinar.topjava.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_EMAIL;
 
-public class AdminRestControllerTest extends AbstractControllerTest {
+class AdminRestControllerTest extends AbstractControllerTest {
 
     private static final String REST_URL = AdminRestController.REST_URL + '/';
 
     @Test
-    public void testGet() throws Exception {
+    void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + ADMIN_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
@@ -39,7 +39,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testGetNotFound() throws Exception {
+    void testGetNotFound() throws Exception {
         mockMvc.perform(get(REST_URL + 1)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isUnprocessableEntity())
@@ -47,7 +47,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testGetByEmail() throws Exception {
+    void testGetByEmail() throws Exception {
         mockMvc.perform(get(REST_URL + "by?email=" + ADMIN.getEmail())
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
@@ -56,7 +56,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testDelete() throws Exception {
+    void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL + USER_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
@@ -65,7 +65,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testDeleteNotFound() throws Exception {
+    void testDeleteNotFound() throws Exception {
         mockMvc.perform(delete(REST_URL + 1)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isUnprocessableEntity())
@@ -73,20 +73,20 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testGetUnAuth() throws Exception {
+    void testGetUnAuth() throws Exception {
         mockMvc.perform(get(REST_URL))
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
-    public void testGetForbidden() throws Exception {
+    void testGetForbidden() throws Exception {
         mockMvc.perform(get(REST_URL)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isForbidden());
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    void testUpdate() throws Exception {
         User updated = new User(USER);
         updated.setName("UpdatedName");
         updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
@@ -100,7 +100,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testCreate() throws Exception {
+    void testCreate() throws Exception {
         User expected = new User(null, "New", "new@gmail.com", "newPass", 2300, Role.ROLE_USER, Role.ROLE_ADMIN);
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -116,7 +116,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testGetAll() throws Exception {
+    void testGetAll() throws Exception {
         TestUtil.print(mockMvc.perform(get(REST_URL)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
@@ -125,7 +125,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testCreateInvalid() throws Exception {
+    void testCreateInvalid() throws Exception {
         User expected = new User(null, null, "", "newPass", 7300, Role.ROLE_USER, Role.ROLE_ADMIN);
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -137,7 +137,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testUpdateInvalid() throws Exception {
+    void testUpdateInvalid() throws Exception {
         User updated = new User(USER);
         updated.setName("");
         mockMvc.perform(put(REST_URL + USER_ID)
@@ -152,7 +152,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     @Transactional(propagation = Propagation.NEVER)
-    public void testUpdateDuplicate() throws Exception {
+    void testUpdateDuplicate() throws Exception {
         User updated = new User(USER);
         updated.setEmail("admin@gmail.com");
         mockMvc.perform(put(REST_URL + USER_ID)
@@ -167,7 +167,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     @Transactional(propagation = Propagation.NEVER)
-    public void testCreateDuplicate() throws Exception {
+    void testCreateDuplicate() throws Exception {
         User expected = new User(null, "New", "user@yandex.ru", "newPass", 2300, Role.ROLE_USER, Role.ROLE_ADMIN);
         mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)

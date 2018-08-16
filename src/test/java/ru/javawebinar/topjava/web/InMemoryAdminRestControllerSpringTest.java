@@ -1,12 +1,10 @@
 package ru.javawebinar.topjava.web;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import ru.javawebinar.topjava.UserTestData;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.mock.InMemoryUserRepositoryImpl;
@@ -17,9 +15,8 @@ import java.util.Collection;
 
 import static ru.javawebinar.topjava.UserTestData.ADMIN;
 
-@ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/mock.xml"})
-@RunWith(SpringRunner.class)
-public class InMemoryAdminRestControllerSpringTest {
+@SpringJUnitConfig(locations = {"classpath:spring/spring-app.xml", "classpath:spring/mock.xml"})
+class InMemoryAdminRestControllerSpringTest {
 
     @Autowired
     private AdminRestController controller;
@@ -27,21 +24,21 @@ public class InMemoryAdminRestControllerSpringTest {
     @Autowired
     private InMemoryUserRepositoryImpl repository;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         repository.init();
     }
 
     @Test
-    public void testDelete() throws Exception {
+    void testDelete() throws Exception {
         controller.delete(UserTestData.USER_ID);
         Collection<User> users = controller.getAll();
-        Assert.assertEquals(users.size(), 1);
-        Assert.assertEquals(users.iterator().next(), ADMIN);
+        Assertions.assertEquals(users.size(), 1);
+        Assertions.assertEquals(users.iterator().next(), ADMIN);
     }
 
-    @Test(expected = NotFoundException.class)
-    public void testDeleteNotFound() throws Exception {
-        controller.delete(10);
+    @Test
+    void testDeleteNotFound() throws Exception {
+        Assertions.assertThrows(NotFoundException.class, () -> controller.delete(10));
     }
 }

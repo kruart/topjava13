@@ -1,41 +1,34 @@
 package ru.javawebinar.topjava;
 
-import org.junit.rules.ExternalResource;
-import org.junit.rules.Stopwatch;
-import org.junit.runner.Description;
+import org.junit.jupiter.api.extension.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StopWatch;
 
-import java.util.concurrent.TimeUnit;
-
-public class TimingRules {
+public class TimingRules implements BeforeAllCallback, AfterAllCallback, BeforeTestExecutionCallback, AfterTestExecutionCallback {
     private static final Logger log = LoggerFactory.getLogger("result");
 
-    private static StringBuilder results = new StringBuilder();
+    private StopWatch stopwatch;
 
-    // http://stackoverflow.com/questions/14892125/what-is-the-best-practice-to-determine-the-execution-time-of-the-bussiness-relev
-    public static final Stopwatch STOPWATCH = new Stopwatch() {
-        @Override
-        protected void finished(long nanos, Description description) {
-            String result = String.format("%-95s %7d", description.getDisplayName(), TimeUnit.NANOSECONDS.toMillis(nanos));
-            results.append(result).append('\n');
-            log.info(result + " ms\n");
-        }
-    };
+    @Override
+    public void beforeAll(ExtensionContext extensionContext) throws Exception {
+        stopwatch = new StopWatch("Execution Time of " + extensionContext.getRequiredTestClass().getSimpleName());
+    }
 
-    public static final ExternalResource SUMMARY = new ExternalResource() {
-        @Override
-        protected void before() throws Throwable {
-            results.setLength(0);
-        }
+    @Override
+    public void beforeTestExecution(ExtensionContext extensionContext) throws Exception {
+        log.info("start execution method: " + extensionContext.getRequiredTestClass().getName() + "." + extensionContext.getDisplayName());
+        stopwatch.start(extensionContext.getDisplayName());
+    }
 
-        @Override
-        protected void after() {
-            log.info("\n-------------------------------------------------------------------------------------------------------" +
-                    "\nTest                                                                                       Duration, ms" +
-                    "\n-------------------------------------------------------------------------------------------------------\n" +
-                    results +
-                    "-------------------------------------------------------------------------------------------------------\n");
-        }
-    };
+    @Override
+    public void afterTestExecution(ExtensionContext extensionContext) throws Exception {
+        log.info("stop execution method: " + extensionContext.getRequiredTestClass().getName() + "." + extensionContext.getDisplayName());
+        stopwatch.stop();
+    }
+
+    @Override
+    public void afterAll(ExtensionContext extensionContext) throws Exception {
+        log.info('\n' + stopwatch.prettyPrint() + '\n');
+    }
 }

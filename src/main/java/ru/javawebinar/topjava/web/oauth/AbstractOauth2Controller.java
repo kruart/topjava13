@@ -28,7 +28,7 @@ import static org.springframework.security.web.context.HttpSessionSecurityContex
  */
 abstract public class AbstractOauth2Controller {
 
-    @Autowired
+    @Autowired(required = false)
     RestTemplate template;
 
     @Autowired

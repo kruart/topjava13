@@ -36,7 +36,7 @@
     </mvc:annotation-driven>
 
     <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" id="converter"/>
-    <bean class="org.springframework.web.client.RestTemplate" p:messageConverters-ref="converter" />
+    <bean class="org.springframework.web.client.RestTemplate" p:messageConverters-ref="converter"/>
 
     <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
         <property name="formatters">
@@ -78,7 +78,7 @@
     </bean>
 
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-        <property name="defaultLocale" value="uk"/>
+        <property name="defaultLocale" value="ru"/>
     </bean>
 
     <mvc:interceptors>
