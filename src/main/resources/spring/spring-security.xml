@@ -76,6 +76,15 @@
                 p:userDataUrl="${google.userDataUrl}"
                 p:scope="${google.scope}"/>
 
+    <beans:bean class="ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider" id="linkedinOauth2Provider"
+                p:clientId="${linkedin.clientId}"
+                p:secretId="${linkedin.secretId}"
+                p:authorizeUrl="${linkedin.authorizeUrl}"
+                p:accessTokenUrl="${linkedin.accessTokenUrl}"
+                p:redirectUri="${linkedin.redirectUri}"
+                p:userDataUrl="${linkedin.userDataUrl}"
+                p:scope="${linkedin.scope}"/>
+
     <beans:beans profile="postgres,hsqldb,tomcat">
         <beans:bean name="github-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
                     p:location="classpath:oauth/github.properties"
@@ -88,6 +97,10 @@
         <beans:bean name="google-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
                     p:location="classpath:oauth/google.properties"
                     p:placeholderPrefix="${google."/>
+
+        <beans:bean name="linkedin-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+                    p:location="classpath:oauth/linkedin.properties"
+                    p:placeholderPrefix="${linkedin."/>
     </beans:beans>
 
     <beans:beans profile="heroku">
@@ -102,5 +115,9 @@
         <beans:bean name="google-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
                     p:location="classpath:oauth/heroku_google.properties"
                     p:placeholderPrefix="${google."/>
+
+        <beans:bean name="linkedin-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+                    p:location="classpath:oauth/linkedin.properties"
+                    p:placeholderPrefix="${linkedin."/>
     </beans:beans>
 </beans:beans>
