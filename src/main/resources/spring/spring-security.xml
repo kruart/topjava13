@@ -117,7 +117,7 @@
                     p:placeholderPrefix="${google."/>
 
         <beans:bean name="linkedin-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-                    p:location="classpath:oauth/linkedin.properties"
+                    p:location="classpath:oauth/heroku_linkedin.properties"
                     p:placeholderPrefix="${linkedin."/>
     </beans:beans>
 </beans:beans>
