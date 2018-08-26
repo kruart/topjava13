@@ -24,6 +24,13 @@
                     <topjava:inputField labelCode="user.email" name="email"/>
                     <topjava:inputField labelCode="user.password" name="password" inputType="password"/>
                     <topjava:inputField labelCode="user.caloriesPerDay" name="caloriesPerDay" inputType="number"/>
+                    
+                    <div class="g-recaptcha" data-sitekey="6Lfb1GoUAAAAAFGWEbPbq79cJZap2a69D4YcfpdP"></div>
+                    <c:if test="${not empty  captchaSuccess}">
+                        <div class="alert alert-danger">
+                            <spring:message code="${captchaSuccess}"/>
+                        </div>
+                    </c:if>
 
                     <div class="text-right">
                         <button type="submit" class="btn btn-primary">

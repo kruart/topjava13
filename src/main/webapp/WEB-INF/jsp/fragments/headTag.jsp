@@ -26,6 +26,7 @@
         <%--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css" rel="stylesheet">--%>
     </sec:authorize>
 
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <%--http://stackoverflow.com/a/24070373/548473--%>
     <script type="text/javascript" src="webjars/jquery/3.3.1-1/jquery.min.js"></script>
     <script type="text/javascript" src="webjars/bootstrap/4.1.0/js/bootstrap.min.js" defer></script>

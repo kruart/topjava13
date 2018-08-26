@@ -1,6 +1,9 @@
 package ru.javawebinar.topjava.web;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -8,7 +11,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.to.UserTo;
 import ru.javawebinar.topjava.util.UserUtil;
@@ -20,6 +26,11 @@ import static ru.javawebinar.topjava.web.ExceptionInfoHandler.EXCEPTION_DUPLICAT
 
 @Controller
 public class RootController extends AbstractUserController {
+
+    private String recaptchaSecretKey = "6Lfb1GoUAAAAAK77tHFBUfUCdMYbppggtQamUJms";
+
+    @Autowired
+    private RestTemplate template;
 
     @GetMapping("/")
     public String root() {
@@ -50,8 +61,9 @@ public class RootController extends AbstractUserController {
     }
 
     @PostMapping("/profile")
-    public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status, @AuthenticationPrincipal AuthorizedUser authorizedUser) {
-        if (result.hasErrors()) {
+    public String updateProfile(@RequestParam("g-recaptcha-response") String reCaptchaResponse,
+                                @Valid UserTo userTo, BindingResult result, SessionStatus status, @AuthenticationPrincipal AuthorizedUser authorizedUser, ModelMap model) {
+        if (!isCaptchaSuccess(reCaptchaResponse, model) || result.hasErrors()) {
             return "profile";
         }
         try {
@@ -73,8 +85,9 @@ public class RootController extends AbstractUserController {
     }
 
     @PostMapping("/register")
-    public String saveRegister(@Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
-        if (result.hasErrors()) {
+    public String saveRegister(@RequestParam("g-recaptcha-response") String reCaptchaResponse,
+                               @Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
+        if (!isCaptchaSuccess(reCaptchaResponse, model) || result.hasErrors()) {
             model.addAttribute("register", true);
             return "profile";
         }
@@ -87,5 +100,20 @@ public class RootController extends AbstractUserController {
             model.addAttribute("register", true);
             return "profile";
         }
+    }
+
+    private boolean isCaptchaSuccess(String reCaptchaResponse, ModelMap model) {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://www.google.com/recaptcha/api/siteverify")
+                .queryParam("secret", recaptchaSecretKey)
+                .queryParam("response", reCaptchaResponse);
+
+        ResponseEntity<JsonNode> entity = template.postForEntity(builder.build().encode().toUri(), null, JsonNode.class);
+        boolean isSuccess = entity.getBody().get("success").asText().equals("true");
+
+        if (!isSuccess) {
+            model.addAttribute("captchaSuccess", "error.captcha");
+        }
+
+        return isSuccess;
     }
 }
