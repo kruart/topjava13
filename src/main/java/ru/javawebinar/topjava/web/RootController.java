@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.web;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,7 +28,8 @@ import static ru.javawebinar.topjava.web.ExceptionInfoHandler.EXCEPTION_DUPLICAT
 @Controller
 public class RootController extends AbstractUserController {
 
-    private String recaptchaSecretKey = "6Lfb1GoUAAAAAK77tHFBUfUCdMYbppggtQamUJms";
+    @Value("${common.recaptcha.secret}")
+    private String recaptchaSecretKey;
 
     @Autowired
     private RestTemplate template;
