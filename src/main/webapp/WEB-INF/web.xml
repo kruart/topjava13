@@ -6,6 +6,13 @@
 
     <display-name>Topjava</display-name>
 
+    <!-- Configure ContextLoaderListener to use AnnotationConfigWebApplicationContext
+   instead of the default XmlWebApplicationContext -->
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+    </context-param>
+
     <context-param>
         <param-name>spring.profiles.default</param-name>
         <param-value>postgres,datajpa</param-value>
@@ -14,8 +21,7 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:spring/spring-app.xml
-            classpath:spring/spring-db.xml
+            ru.javawebinar.topjava.config.SpringAppConfiguration
         </param-value>
     </context-param>
 
