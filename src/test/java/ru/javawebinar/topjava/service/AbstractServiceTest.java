@@ -13,11 +13,12 @@ import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.TimingRules;
 import ru.javawebinar.topjava.config.SpringAppConfiguration;
 import ru.javawebinar.topjava.config.SpringDbConfiguration;
+import ru.javawebinar.topjava.config.SpringToolsConfiguration;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.javawebinar.topjava.util.ValidationUtil.getRootCause;
 
-@SpringJUnitConfig(classes = {SpringAppConfiguration.class, SpringDbConfiguration.class})
+@SpringJUnitConfig(classes = {SpringAppConfiguration.class, SpringToolsConfiguration.class, SpringDbConfiguration.class})
 @ActiveProfiles(resolver = ActiveDbProfileResolver.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 @ExtendWith(TimingRules.class)

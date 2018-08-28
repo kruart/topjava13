@@ -6,7 +6,5 @@ import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 @ComponentScan(basePackages = "ru.javawebinar.**.service")
-@ImportResource({
-        "classpath:spring/spring-tools.xml",
-        "classpath:spring/spring-security.xml"})
+@ImportResource({"classpath:spring/spring-security.xml"})
 public class SpringAppConfiguration {}
