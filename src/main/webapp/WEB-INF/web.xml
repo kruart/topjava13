@@ -23,6 +23,7 @@
         <param-value>
             ru.javawebinar.topjava.config.SpringAppConfiguration
             ru.javawebinar.topjava.config.SpringToolsConfiguration
+            ru.javawebinar.topjava.config.SpringSecurityConfiguration
             ru.javawebinar.topjava.config.SpringDbConfiguration
         </param-value>
     </context-param>
