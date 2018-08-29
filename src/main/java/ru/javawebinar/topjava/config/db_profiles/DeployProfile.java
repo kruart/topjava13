@@ -14,13 +14,13 @@ import java.net.URISyntaxException;
 @Configuration
 @Profile("heroku")
 @PropertySource(value = {"classpath:db/heroku.properties"}, encoding = "UTF-8")
-public class HerokuProfile {
+public class DeployProfile {
 
     @Autowired
     private Environment env;
 
     @Bean
-    public DataSource herokuDataSource() throws URISyntaxException {
+    public DataSource dataSource() throws URISyntaxException {
         DataSource dataSource = new DataSource();
         URI dbUrl = new URI(env.getRequiredProperty("DATABASE_URL"));
         dataSource.setDriverClassName("org.postgresql.Driver");

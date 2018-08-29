@@ -176,6 +176,5 @@ class AdminRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isConflict())
                 .andExpect(errorType(ErrorType.VALIDATION_ERROR))
                 .andExpect(jsonMessage("$.details", EXCEPTION_DUPLICATE_EMAIL));
-
     }
 }

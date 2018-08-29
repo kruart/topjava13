@@ -22,7 +22,7 @@ import ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider;
 @RequestMapping("/oauth/github")
 public class GithubOauth2Controller extends AbstractOauth2Controller {
 
-    @Autowired
+    @Autowired(required = false)
     @Qualifier("githubOauth2Provider")
     private Oauth2Provider provider;
 

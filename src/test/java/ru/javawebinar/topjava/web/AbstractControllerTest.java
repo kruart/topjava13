@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import ru.javawebinar.topjava.AllActiveProfileResolver;
+import ru.javawebinar.topjava.config.*;
 import ru.javawebinar.topjava.repository.JpaUtil;
 import ru.javawebinar.topjava.service.UserService;
 import ru.javawebinar.topjava.util.exception.ErrorType;
@@ -22,10 +23,12 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 
-@SpringJUnitWebConfig(locations = {
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-mvc.xml",
-        "classpath:spring/spring-db.xml"
+@SpringJUnitWebConfig(classes = {
+        SpringAppConfiguration.class,
+        SpringToolsConfiguration.class,
+        SpringSecurityConfiguration.class,
+        SpringDbConfiguration.class,
+        SpringMvcConfiguration.class
 })
 @Transactional
 @ActiveProfiles(resolver = AllActiveProfileResolver.class)

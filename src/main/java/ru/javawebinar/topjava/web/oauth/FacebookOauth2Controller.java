@@ -21,7 +21,7 @@ import ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider;
 @RequestMapping("/oauth/facebook")
 public class FacebookOauth2Controller extends AbstractOauth2Controller {
 
-    @Autowired
+    @Autowired(required = false)
     @Qualifier("facebookOauth2Provider")
     private Oauth2Provider provider;
 

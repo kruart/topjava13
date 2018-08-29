@@ -17,7 +17,7 @@ public class PostgresProfile {
     private Environment env;
 
     @Bean
-    public DataSource postgresDataSource() {
+    public DataSource dataSource() {
         DataSource dataSource = new DataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl(env.getRequiredProperty("database.url"));

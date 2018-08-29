@@ -19,7 +19,7 @@ public class HsqldbProfile {
     private Environment env;
 
     @Bean
-    public DataSource hsqldbDataSource() {
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
         dataSource.setUrl(env.getRequiredProperty("database.url"));

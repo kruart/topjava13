@@ -19,22 +19,22 @@ public class HerokuProfile {
     private SpringSecurityConfiguration conf;
 
     @Bean
-    public Oauth2Provider herokuGithubOauth2Provider() {
+    public Oauth2Provider githubOauth2Provider() {
         return conf.createOauth2Provider("herokuGithubProperty");
     }
 
     @Bean
-    public Oauth2Provider herokuFacebookOauth2Provider() {
+    public Oauth2Provider facebookOauth2Provider() {
         return conf.createOauth2Provider("herokuFacebookProperty");
     }
 
     @Bean
-    public Oauth2Provider herokuGoogleOauth2Provider() {
+    public Oauth2Provider googleOauth2Provider() {
         return conf.createOauth2Provider("herokuGoogleProperty");
     }
 
     @Bean
-    public Oauth2Provider herokuLinkedinOauth2Provider() {
+    public Oauth2Provider linkedinOauth2Provider() {
         return conf.createOauth2Provider("herokuLinkedinProperty");
     }
 }

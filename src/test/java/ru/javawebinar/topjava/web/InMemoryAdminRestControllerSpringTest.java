@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import ru.javawebinar.topjava.UserTestData;
+import ru.javawebinar.topjava.config.*;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.mock.InMemoryUserRepositoryImpl;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
@@ -12,10 +13,13 @@ import ru.javawebinar.topjava.web.user.AdminRestController;
 
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.javawebinar.topjava.UserTestData.ADMIN;
 
-@SpringJUnitConfig(locations = {"classpath:spring/spring-app.xml", "classpath:spring/mock.xml"})
+@SpringJUnitConfig(classes = {
+        SpringAppConfiguration.class, SpringToolsConfiguration.class, SpringSecurityConfiguration.class, MockConfig.class
+})
 class InMemoryAdminRestControllerSpringTest {
 
     @Autowired

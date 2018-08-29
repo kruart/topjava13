@@ -21,7 +21,7 @@ import ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider;
 @RequestMapping("/oauth/google")
 public class GoogleOauth2Controller extends AbstractOauth2Controller {
 
-    @Autowired
+    @Autowired(required = false)
     @Qualifier("googleOauth2Provider")
     private Oauth2Provider provider;
 

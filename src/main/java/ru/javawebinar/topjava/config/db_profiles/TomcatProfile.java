@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 public class TomcatProfile {
 
     @Bean
-    public DataSource tomcatDataSource() {
+    public DataSource dataSource() {
         JndiDataSourceLookup lookup = new JndiDataSourceLookup();
         return lookup.getDataSource("java:comp/env/jdbc/topjava");
     }

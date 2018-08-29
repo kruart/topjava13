@@ -21,7 +21,7 @@ import ru.javawebinar.topjava.web.oauth.provider.Oauth2Provider;
 @RequestMapping("/oauth/linkedin")
 public class LinkedInOauth2Controller extends AbstractOauth2Controller {
 
-    @Autowired
+    @Autowired(required = false)
     @Qualifier("linkedinOauth2Provider")
     private Oauth2Provider provider;
 

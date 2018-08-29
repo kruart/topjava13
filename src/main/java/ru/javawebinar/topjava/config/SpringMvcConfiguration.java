@@ -129,7 +129,7 @@ public class SpringMvcConfiguration implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver resolver = new CookieLocaleResolver();
-        resolver.setDefaultLocale(new Locale("ua"));
+        resolver.setDefaultLocale(new Locale("ru"));
         return resolver;
     }
 
