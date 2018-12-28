@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/kruart/topjava13.svg?branch=master)](https://travis-ci.org/kruart/topjava13)
+
 # [Демо проекта](http://tjua.herokuapp.com)
 #### Разработка полнофункционального Spring/JPA Enterprise приложения c авторизацией и правами доступа на основе ролей с использованием <a href="https://zeroturnaround.com/rebellabs/developer-productivity-report-2017-why-do-you-use-java-tools-you-use/" target="_blank">наиболее популярных инструментов и технологий Java</a>: Maven, Spring MVC, Security, JPA(Hibernate), REST(Jackson), Bootstrap (css,js), datatables, jQuery + plugins, Java 8 Stream and Time API и сохранением в базах данных Postgresql и HSQLDB.
 
